@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVN 검사라인 · 아이소메트릭 2.5D</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="top">
+  <div class="title">
+    <h1 id="lineName">AVN 검사 라인</h1>
+    <div id="lineMeta" class="meta"></div>
+  </div>
+  <div class="controls">
+    <button id="btnPlay" type="button" title="재생/일시정지 (Space)">⏸ 일시정지</button>
+    <label>속도
+      <select id="speed"></select>
+    </label>
+    <label>레이아웃
+      <select id="layout">
+        <option value="U">U자 라인</option>
+        <option value="line">직선 라인</option>
+      </select>
+    </label>
+    <button id="btnReset" type="button" title="같은 시드로 처음부터 다시">⟲ 초기화</button>
+    <button id="btnFit" type="button" title="화면 맞춤 (더블클릭)">⤢ 화면 맞춤</button>
+  </div>
+  <div id="legend" class="legend"></div>
+</header>
+
+<main id="stage">
+  <canvas id="view"></canvas>
+  <div id="tip" class="tip" hidden></div>
+  <div class="hint">휠: 확대/축소 · 드래그: 이동 · 더블클릭: 화면 맞춤 · 셀에 마우스를 올리면 단계 상세</div>
+  <div id="err" class="err" hidden></div>
+</main>
+
+<footer id="kpi">
+  <div id="kpiCards" class="kpi-cards"></div>
+  <div id="stageStrip" class="stage-strip"></div>
+</footer>
+
+<script src="../data/line.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

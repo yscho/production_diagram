@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>AVN 검사라인 06 · 스윔레인 + 간트 타임라인</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="title"><h1 id="ttl">AVN 검사라인</h1><span id="sub"></span></div>
+  <div class="kpis" id="kpis"></div>
+</header>
+<div class="controls">
+  <button id="btnPlay">⏸ 일시정지</button>
+  <label>배속 <select id="selSpeed"></select></label>
+  <label>표시 구간 <select id="selWin"></select></label>
+  <button id="btnLive">⏩ 실시간으로</button>
+  <button id="btnReset">↺ 초기화</button>
+  <span class="hint">막대 클릭 = 팔레트 경로 하이라이트 · 빈 곳 클릭 = 해제 · 드래그/휠 = 과거 시간 탐색</span>
+  <span class="legend" id="legend"></span>
+</div>
+<main>
+  <div id="wrap"><canvas id="cv"></canvas><div id="tip"></div></div>
+  <div id="path"></div>
+</main>
+<script src="../data/line.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

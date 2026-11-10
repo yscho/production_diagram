@@ -1,0 +1,37 @@
+window.LINE_DATA = {
+  "line": {
+    "name": "AVN 최종 검사 라인 (가상)",
+    "product": "AVN Head Unit 12.3\"",
+    "shift": "주간 A조",
+    "taktTimeSec": 45,
+    "targetUph": 80
+  },
+  "simulation": {
+    "speed": 10,
+    "palletCount": 36,
+    "arrivalIntervalSec": 45,
+    "conveyorTransferSec": 6,
+    "retestOnFail": true,
+    "maxRetest": 1,
+    "randomSeed": 20261109
+  },
+  "statusColors": {
+    "idle": "#9aa5b1",
+    "busy": "#2f80ed",
+    "pass": "#27ae60",
+    "fail": "#eb5757",
+    "waiting": "#f2c94c",
+    "offline": "#4f4f4f"
+  },
+  "stages": [
+    { "id": 1, "code": "VER", "name": "버전 검사", "nameEn": "SW/HW Version Check", "palletSlots": 4, "testPcs": 2, "cycleTimeSec": 30, "failRate": 0.01, "items": ["MCU FW", "SoC OS", "Map DB", "HW Rev"] },
+    { "id": 2, "code": "BT", "name": "블루투스 화면 검사", "nameEn": "Bluetooth & Display", "palletSlots": 6, "testPcs": 3, "cycleTimeSec": 75, "failRate": 0.03, "items": ["BT Pairing", "HFP Call", "LCD Pattern", "Touch"] },
+    { "id": 3, "code": "RF", "name": "라디오·와이파이 검사", "nameEn": "Radio / Wi-Fi", "palletSlots": 6, "testPcs": 3, "cycleTimeSec": 90, "failRate": 0.04, "items": ["FM/AM", "DAB/DMB", "Wi-Fi 2.4/5G", "RSSI"] },
+    { "id": 4, "code": "USB", "name": "USB 검사", "nameEn": "USB / CarPlay", "palletSlots": 4, "testPcs": 2, "cycleTimeSec": 40, "failRate": 0.02, "items": ["USB-A/C", "Media Play", "CarPlay/AA", "Charging"] },
+    { "id": 5, "code": "GPS", "name": "GPS·내비게이션 검사", "nameEn": "GPS / Navigation", "palletSlots": 6, "testPcs": 3, "cycleTimeSec": 80, "failRate": 0.03, "items": ["GNSS Fix", "Gyro/DR", "Route Calc", "TTFF"] },
+    { "id": 6, "code": "CAM", "name": "카메라·AV 입력 검사", "nameEn": "Camera / AV Input", "palletSlots": 4, "testPcs": 2, "cycleTimeSec": 50, "failRate": 0.02, "items": ["RVC", "SVM 4ch", "AUX", "Video Sync"] },
+    { "id": 7, "code": "AUD", "name": "스피커·오디오 검사", "nameEn": "Speaker / Audio", "palletSlots": 6, "testPcs": 3, "cycleTimeSec": 70, "failRate": 0.03, "items": ["AMP Out", "THD+N", "Mic", "Chime"] },
+    { "id": 8, "code": "FQC", "name": "최종 QC·플래시", "nameEn": "Final QC & Flash", "palletSlots": 4, "testPcs": 2, "cycleTimeSec": 45, "failRate": 0.01, "items": ["Final FW Flash", "Serial/Label", "Visual", "Pack"] }
+  ]
+}
+;

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVN 검사라인 시각화 샘플 비교</title>
+<style>
+body{margin:0;font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#0f141b;color:#e6edf3}
+header{padding:24px 32px;border-bottom:1px solid #263241}h1{margin:0 0 6px;font-size:22px}header p{margin:0;color:#9aa5b1;font-size:14px}
+main{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:20px;padding:24px 32px}
+a.card{display:block;background:#17202b;border:1px solid #263241;border-radius:10px;overflow:hidden;color:inherit;text-decoration:none;transition:border-color .2s,transform .2s}
+a.card:hover{border-color:#2f80ed;transform:translateY(-2px)}
+a.card img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;display:block;background:#0b0f14}
+.b{padding:14px 16px}.b h2{margin:0 0 6px;font-size:16px}.b p{margin:0 0 8px;font-size:13px;color:#b8c2cc;line-height:1.5}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;background:#22303f;color:#9cc3ff;margin-right:4px}
+footer{padding:0 32px 32px;color:#7d8996;font-size:12px}
+</style></head><body>
+<header><h1>AVN 공장 검사라인 시각화 — 샘플 6종 비교</h1>
+<p>공통 데이터: <code>data/line.json</code> → <code>data/sync.sh</code> 실행 → <code>data/line.js</code>(window.LINE_DATA). 모든 샘플은 인터넷 없이 file:// 로 열림. 자세한 내용은 README.md.</p></header>
+<main>
+<a class="card" href="01_topdown_2d/index.html"><img src="screenshots/01_topdown_2d.png" alt=""><div class="b"><h2>01 · 2D 탑다운 평면도</h2><p>SVG 평면도에 스테이션·슬롯·PC 배치, 팔레트가 순환 컨베이어를 따라 이동하고 불량은 리젝트 레인으로.</p><span class="tag">Codex · gpt-6-luna</span><span class="tag">SVG</span></div></a>
+<a class="card" href="02_flow_dashboard/index.html"><img src="screenshots/02_flow_dashboard.png" alt=""><div class="b"><h2>02 · 라인 흐름도 + 대시보드</h2><p>좌→우 공정 흐름 노드(슬롯 점유·PC·대기열) + KPI, 단계별 가동률, UPH 추이, 병목·이벤트 로그.</p><span class="tag">Claude · Sonnet 5.5</span><span class="tag">SVG/HTML</span></div></a>
+<a class="card" href="03_isometric/index.html"><img src="screenshots/03_isometric.png" alt=""><div class="b"><h2>03 · 아이소메트릭 2.5D</h2><p>라이브러리 없이 2:1 아이소메트릭 투영으로 공장 셀·지그·PC 랙과 팔레트 이동 표현, 호버 툴팁.</p><span class="tag">Cursor · Auto</span><span class="tag">Canvas/SVG</span></div></a>
+<a class="card" href="04_threejs_3d/index.html"><img src="screenshots/04_threejs_3d.png" alt=""><div class="b"><h2>04 · Three.js 3D</h2><p>로컬 three.js(r159, MIT)로 3D 라인, 슬롯 지그·PC 모니터 상태 발광, 드래그 회전/휠 줌.</p><span class="tag">Codex · gpt-6.1-sol</span><span class="tag">WebGL</span></div></a>
+<a class="card" href="05_card_grid/index.html"><img src="screenshots/05_card_grid.png" alt=""><div class="b"><h2>05 · 카드/그리드 안돈 보드</h2><p>단계별 카드에 슬롯 셀·PC 타일(시리얼·진행률)·수율·대기열, 상단 안돈 헤더. 현장 모니터용.</p><span class="tag">Claude · Sonnet 5.5</span><span class="tag">CSS Grid</span></div></a>
+<a class="card" href="06_swimlane_gantt/index.html"><img src="screenshots/06_swimlane_gantt.png" alt=""><div class="b"><h2>06 · 스윔레인 + 간트 타임라인</h2><p>단계×PC 레인에 검사 막대가 실시간으로 쌓이는 타임라인. 팔레트 클릭 시 전 단계 경로 하이라이트.</p><span class="tag">Claude · Sonnet 5.5</span><span class="tag">Canvas</span></div></a>
+</main>
+<footer>가상 데이터·가상 시뮬레이션입니다. 2026-11-10 Paseo 0.15.3 병렬 에이전트로 제작.</footer>
+</body></html>

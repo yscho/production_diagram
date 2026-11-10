@@ -1,0 +1,22 @@
+previous_handoff_present=True
+same_hash_files=84
+hash_differ_count=2
+hash_differ:
+  02_unified_draft/ORIGINAL_SOURCE.txt
+  02_unified_draft/views/06_swimlane_gantt/render.js
+only_in_new_mac_snapshot:
+only_in_old_handoff:
+  01_original_samples/all6.png
+  01_original_samples/screenshots/02_flow_dashboard.png
+  01_original_samples/screenshots/01_topdown_2d.png
+  01_original_samples/screenshots/06_swimlane_gantt.png
+  01_original_samples/screenshots/04_threejs_3d.png
+  01_original_samples/screenshots/05_card_grid.png
+  01_original_samples/screenshots/03_isometric.png
+  02_unified_draft/FIDELITY_NOTICE.md
+  02_unified_draft/screenshots/02_flow_dashboard.png
+  02_unified_draft/screenshots/01_topdown_2d.png
+  02_unified_draft/screenshots/06_swimlane_gantt.png
+  02_unified_draft/screenshots/04_threejs_3d.png
+  02_unified_draft/screenshots/05_card_grid.png
+  02_unified_draft/screenshots/03_isometric.png

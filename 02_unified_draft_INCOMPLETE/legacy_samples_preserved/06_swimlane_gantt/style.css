@@ -1,0 +1,21 @@
+*{box-sizing:border-box}
+body{margin:0;background:#10151c;color:#dbe3ec;font:13px/1.4 -apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:10px 16px;background:#161d27;border-bottom:1px solid #263243}
+h1{margin:0;font-size:17px;display:inline}
+#sub{margin-left:10px;color:#8a98aa;font-size:12px}
+.kpis{display:flex;gap:8px;flex-wrap:wrap}
+.kpi{background:#1d2735;border:1px solid #2a384b;border-radius:6px;padding:4px 12px;min-width:84px;text-align:center}
+.kpi b{display:block;font-size:17px;font-variant-numeric:tabular-nums}
+.kpi span{font-size:11px;color:#8a98aa}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:8px 16px;background:#131a23}
+button,select{background:#222f42;color:#dbe3ec;border:1px solid #38485f;border-radius:5px;padding:5px 10px;font:inherit;cursor:pointer}
+button:hover{background:#2c3d56}
+.hint{color:#78879a;font-size:12px}
+.legend{margin-left:auto;display:flex;gap:10px;font-size:12px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+main{padding:10px 16px 20px}
+#wrap{position:relative;border:1px solid #263243;border-radius:6px;overflow:hidden;background:#0d1219}
+canvas{display:block;width:100%;cursor:grab}
+#tip{position:absolute;pointer-events:none;background:#000d;border:1px solid #4a5d78;border-radius:5px;padding:5px 8px;font-size:12px;display:none;white-space:nowrap;z-index:3}
+#path{margin-top:10px;padding:8px 12px;background:#161d27;border:1px solid #263243;border-radius:6px;min-height:40px;color:#8a98aa}
+#path .step{display:inline-block;margin:2px 4px 2px 0;padding:2px 8px;border-radius:4px;color:#fff;font-size:12px}
