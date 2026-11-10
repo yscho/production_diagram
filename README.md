@@ -12,13 +12,27 @@ GitHub는 HTML을 실행하지 않습니다. 저장소를 내려받은 다음 03
 
 ## 화면 미리보기
 
-| 01 · 2D 평면도 | 03 · 아이소메트릭 | 04 · Three.js |
-|---|---|---|
-| ![2D 검사라인 평면도](03_unified_complete/preview/01_topdown.png) | ![아이소메트릭 검사 셀](03_unified_complete/preview/03_isometric.png) | ![Three.js 검사라인](03_unified_complete/preview/04_threejs.png) |
+아래 캡처를 클릭하면 원본 크기로 열립니다. 폭이 좁은 표 안에 넣지 않고 한 장씩 배치해 전체 화면이 보이도록 했습니다.
 
-| 06 · PC 검사 간트 | 07 · 로봇 멀티라인 3D |
-|---|---|
-| ![PC별 검사 이력 간트](03_unified_complete/preview/06_gantt.png) | ![로봇 멀티라인 3D](03_unified_complete/preview/07_robot_line.png) |
+### 01 · 2D 평면도
+
+[![2D 검사라인 평면도](03_unified_complete/preview/01_topdown.png)](03_unified_complete/preview/01_topdown.png)
+
+### 03 · 아이소메트릭
+
+[![아이소메트릭 검사 셀](03_unified_complete/preview/03_isometric.png)](03_unified_complete/preview/03_isometric.png)
+
+### 04 · Three.js
+
+[![Three.js 검사라인](03_unified_complete/preview/04_threejs.png)](03_unified_complete/preview/04_threejs.png)
+
+### 06 · PC 검사 간트
+
+[![PC별 검사 이력 간트](03_unified_complete/preview/06_gantt.png)](03_unified_complete/preview/06_gantt.png)
+
+### 07 · 로봇 멀티라인 3D
+
+[![로봇 멀티라인 3D](03_unified_complete/preview/07_robot_line.png)](03_unified_complete/preview/07_robot_line.png)
 
 ## 검증
 
