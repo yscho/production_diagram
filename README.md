@@ -1,39 +1,52 @@
-# AVN 공장 검사라인 시각화
+# Factory Inspection Line Simulator
 
-원본 6개 시각 샘플과 하나의 공통 엔진을 사용하는 통합 시뮬레이터를 함께 보관합니다.
+This repository contains six original visualization samples alongside an integrated simulator with seven views powered by one engine.
 
-- **통합 시뮬레이터:** [실행 안내](03_unified_complete/README.md) · [index.html](03_unified_complete/index.html)
-- **기존 원본 샘플 6종:** [원본 샘플 폴더](01_original_samples/) · [원본 데이터](01_original_samples/data/line.json)
-- **완성본 소스·테스트·미리보기:** [03_unified_complete](03_unified_complete/)
+## Run the simulator
 
-통합 대시보드는 single_line의 AVN 8단계 검사와 multi_line_example의 로봇 2대, A/B/C/D, 비전, 라벨 흐름을 지원합니다. 시뮬레이션과 설비 값은 예시이며 실제 양산 설비나 PLC/MES에 연결되지 않습니다.
+Download or clone the repository, then open `03_unified_complete/index.html` in a browser. The simulator runs offline using the bundled assets. [Setup and controls](03_unified_complete/README.md)
 
-GitHub는 HTML을 실행하지 않습니다. 저장소를 내려받은 다음 03_unified_complete/index.html을 브라우저에서 열면 오프라인으로 확인할 수 있습니다.
+- **Single line** shows the original eight-stage inspection sequence.
+- **Robot transfer line** adds two robot arms, stations A through D, a vision check, and labeling.
 
-## 화면 미리보기
+The scenarios use example data and simulated equipment. The repository also includes the original sample collection and its line data. [Original samples](01_original_samples/) · [Original line data](01_original_samples/data/line.json)
 
-아래 캡처를 클릭하면 원본 크기로 열립니다. 폭이 좁은 표 안에 넣지 않고 한 장씩 배치해 전체 화면이 보이도록 했습니다.
+## 3D views
 
-### 01 · 2D 평면도
+Click any screenshot to open the full-size image.
 
-[![2D 검사라인 평면도](03_unified_complete/preview/01_topdown.png)](03_unified_complete/preview/01_topdown.png)
+### Original standalone Three.js
 
-### 03 · 아이소메트릭
+The original 3D sample arranges all eight inspection stations along one straight conveyor. Pallets move between fixtures, and failed units leave on a separate reject lane. Drag to rotate the camera and scroll to zoom. [Original 3D sample](01_original_samples/04_threejs_3d/index.html)
 
-[![아이소메트릭 검사 셀](03_unified_complete/preview/03_isometric.png)](03_unified_complete/preview/03_isometric.png)
+[![Original Three.js view with eight stations along a straight conveyor](03_unified_complete/preview/original_threejs.png)](03_unified_complete/preview/original_threejs.png)
 
-### 04 · Three.js
+### 04 · Integrated Three.js
 
-[![Three.js 검사라인](03_unified_complete/preview/04_threejs.png)](03_unified_complete/preview/04_threejs.png)
+The integrated 3D view draws station occupancy and product movement from the same simulation as the other dashboard tabs. The camera stays in place as the simulation advances.
 
-### 06 · PC 검사 간트
+[![Integrated Three.js view of the inspection stations and conveyor](03_unified_complete/preview/04_threejs.png)](03_unified_complete/preview/04_threejs.png)
 
-[![PC별 검사 이력 간트](03_unified_complete/preview/06_gantt.png)](03_unified_complete/preview/06_gantt.png)
+### 07 · Robot transfer line
 
-### 07 · 로봇 멀티라인 3D
+Two robot arms move products between the conveyor and stations A through D. The view follows each transfer and includes camera presets for the full line and individual robot cells.
 
-[![로봇 멀티라인 3D](03_unified_complete/preview/07_robot_line.png)](03_unified_complete/preview/07_robot_line.png)
+[![Two robot arms beside the conveyor and inspection stations](03_unified_complete/preview/07_robot_line.png)](03_unified_complete/preview/07_robot_line.png)
 
-## 검증
+## Other dashboard views
 
-통합 폴더에서 node tests/invariants.node.js로 결정적 엔진·점유 불변식을 확인하고, sh qa/headless_qa.sh로 7개 화면과 공통 조작을 검사할 수 있습니다.
+### 01 · 2D floor plan
+
+[![Top-down floor plan with inspection slots and line status](03_unified_complete/preview/01_topdown.png)](03_unified_complete/preview/01_topdown.png)
+
+### 03 · Isometric layout
+
+[![Isometric layout of the inspection cells and conveyor](03_unified_complete/preview/03_isometric.png)](03_unified_complete/preview/03_isometric.png)
+
+### 06 · Inspection timeline
+
+[![Gantt chart of inspection history by PC](03_unified_complete/preview/06_gantt.png)](03_unified_complete/preview/06_gantt.png)
+
+## Verification
+
+From `03_unified_complete/`, run `node tests/invariants.node.js` to check the simulation rules. Run `sh qa/headless_qa.sh` on macOS with Google Chrome to check the seven views and shared controls.
