@@ -1,0 +1,13 @@
+검사표 (2026-11-10, 검사시각 2026-11-10 12:46:38 KST (Asia/Seoul))
+항목 | 결과 | 근거
+three.min.js 버전 | r159 / npm 0.159.0 | 파일 헤더 REVISION "159"; npm metadata version 0.159.0
+라이선스 | MIT | 파일 @license SPDX-License-Identifier: MIT; 동봉 LICENSE; npm license MIT
+공식 출처 URL | https://registry.npmjs.org/three/0.159.0 및 https://registry.npmjs.org/three/-/three-0.159.0.tgz | npm registry
+tarball 무결성 | npm dist.shasum·integrity 일치 | sha1 6576b1210805b14f0765bac41fd0e4ec18e43b2e
+공식 three.min.js sha256 | 7b1c5d75b28d9de15042e2b374f83566d8c7146697af8fdeb4558b0fb528a585 | package/build/three.min.js, 668024 bytes
+패키지 5개 복사본 | 전원 byte/sha256 일치 | 아래 경로
+동봉 LICENSE 4개 | 공식 package/LICENSE와 일치 | sha256 852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d
+해당 파일 민감검사 미확인 사유 | 해소(한정) | 수정 없는 공식 원본으로 확인
+패키지 전체 안전 / 외부전송 안전 | 미확인(보장 없음) | 이미지 미포함·미검사, 나머지 패턴검사 한계
+소스 내용 vs 1234KST archive | 변경 없음 | HASH_MANIFEST 86개 파일 동일
+이번 archive 변경 범위 | 00_handoff_meta 보고서 보완만 | COMPARE_TO_1234KST.txt

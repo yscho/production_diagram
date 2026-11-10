@@ -1,0 +1,10 @@
+De-identification applied only on the transfer copy. Mac originals were not modified.
+Original values and substitution mappings are not recorded.
+Files redacted:
+- 01_original_samples/README.md kinds=private_ip_or_device_hint
+
+Files excluded instead of redaction:
+- 02_unified_draft/ORIGINAL_SOURCE.txt
+
+Pre-redaction hit count (path/kind/line only): 1
+Residual hits after redaction: 0

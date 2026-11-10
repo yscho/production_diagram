@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AVN 공장 검사라인 통합 시뮬레이터</title>
+  <link id="viewStyle" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#101820;color:#e9f1f7;font:14px system-ui,-apple-system,"Apple SD Gothic Neo",sans-serif}
+    .shell{min-height:100vh}.shellbar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:14px 20px;background:#15232e;border-bottom:1px solid #30434f}
+    .brand{font-size:17px;font-weight:750;margin-right:auto}.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}button,select{padding:8px 11px;color:#edf4f7;background:#263944;border:1px solid #49606c;border-radius:7px;font:inherit;cursor:pointer}
+    .assumption{padding:6px 10px;background:#382f20;color:#f4d58c;border-radius:20px;font-size:12px}.tabs{display:flex;overflow:auto;gap:6px;padding:10px 18px;background:#111c25;border-bottom:1px solid #30434f}.tabs button.active{background:#1d5260;border-color:#51d1b1}
+    #viewRoot{padding:16px;min-height:calc(100vh - 120px)}.statusline{font-size:12px;color:#93a5b1}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="shellbar">
+      <div class="brand">AVN 검사라인 통합 시뮬레이터</div>
+      <div class="statusline" id="simClock">시뮬레이션 준비</div>
+      <div class="tools">
+        <select id="scenario" aria-label="시나리오"></select>
+        <select id="capacity" aria-label="구성 가능한 용량"><option value="10">용량 10</option><option value="20">용량 20</option></select>
+        <select id="speed" aria-label="배속"><option>1</option><option>2</option><option>5</option><option>10</option><option>20</option></select>
+        <button id="toggle">일시정지</button><button id="reset">초기화</button>
+      </div>
+      <span class="assumption" id="assumption"></span>
+    </header>
+    <nav class="tabs" id="tabs" aria-label="시각화 뷰"></nav>
+    <main id="viewRoot"></main>
+  </div>
+  <script src="data/factory.js"></script>
+  <script src="engine/rng.js"></script>
+  <script src="engine/model.js"></script>
+  <script src="engine/sim.js"></script>
+  <script src="views/01_topdown_2d/render.js"></script>
+  <script src="views/02_flow_dashboard/render.js"></script>
+  <script src="views/03_isometric/render.js"></script>
+  <script src="views/04_threejs_3d/vendor/three.min.js"></script>
+  <script src="views/04_threejs_3d/render.js"></script>
+  <script src="views/05_card_grid/render.js"></script>
+  <script src="views/06_swimlane_gantt/render.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      const definitions = [
+        ["01", "2D 탑다운 SVG", "views/01_topdown_2d/style.css"],
+        ["02", "흐름 대시보드", "views/02_flow_dashboard/style.css"],
+        ["03", "아이소메트릭 2.5D", "views/03_isometric/style.css"],
+        ["04", "Three.js 3D", "views/04_threejs_3d/style.css"],
+        ["05", "카드 그리드 안돈", "views/05_card_grid/style.css"],
+        ["06", "스윔레인 간트", "views/06_swimlane_gantt/style.css"]
+      ];
+      const sim = window.AVNSim.createSim(window.FACTORY_DATA, "single_line");
+      window.__avnSim = sim;
+      const api = { getState: () => sim.snapshot(), subscribe: (fn) => sim.subscribe(fn), getSim: () => sim };
+      const root = document.getElementById("viewRoot");
+      const style = document.getElementById("viewStyle");
+      const tabs = document.getElementById("tabs");
+      const buttons = [];
+      let active = -1;
+      let mounted = null;
+      let lastFrame = performance.now();
+      const scenarioSelect = document.getElementById("scenario");
+      Object.entries(window.FACTORY_DATA.scenarios).forEach(([id, scenario]) => {
+        const option = document.createElement("option");
+        option.value = id;
+        option.textContent = scenario.name;
+        scenarioSelect.appendChild(option);
+      });
+      definitions.forEach(([id, label, css], index) => {
+        const button = document.createElement("button");
+        button.textContent = `${id} · ${label}`;
+        button.addEventListener("click", () => activate(index));
+        tabs.appendChild(button);
+        buttons.push(button);
+      });
+      function activate(index) {
+        if (active === index) return;
+        if (mounted) mounted.unmount();
+        active = index;
+        buttons.forEach((button, i) => button.classList.toggle("active", i === index));
+        style.href = definitions[index][2];
+        root.replaceChildren();
+        const view = window.AVNViews[definitions[index][0]];
+        mounted = view;
+        view.mount(root, api);
+      }
+      window.__avnActivateView = activate;
+      document.getElementById("assumption").textContent = window.FACTORY_DATA.capacityAssumptionLabel;
+      scenarioSelect.addEventListener("change", () => sim.setScenario(scenarioSelect.value));
+      document.getElementById("capacity").addEventListener("change", (event) => sim.setCapacity(Number(event.target.value)));
+      document.getElementById("speed").addEventListener("change", (event) => sim.setSpeed(Number(event.target.value)));
+      document.getElementById("toggle").addEventListener("click", (event) => {
+        if (sim.snapshot().paused) sim.resume(); else sim.pause();
+        event.currentTarget.textContent = sim.snapshot().paused ? "재개" : "일시정지";
+      });
+      document.getElementById("reset").addEventListener("click", () => sim.reset());
+      function frame(now) {
+        sim.tick(Math.min((now - lastFrame) / 1000, 0.25));
+        lastFrame = now;
+        document.getElementById("simClock").textContent = `시뮬레이션 ${sim.snapshot().simTimeSec.toFixed(1)}초 · snapshot ${sim.snapshot().snapshotId}`;
+        requestAnimationFrame(frame);
+      }
+      activate(0);
+      requestAnimationFrame(frame);
+    })();
+  </script>
+</body>
+</html>

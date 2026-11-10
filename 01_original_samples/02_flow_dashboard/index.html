@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVN 검사라인 — 라인 흐름도 + 대시보드</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="title">
+    <h1 id="lineName">AVN 검사 라인</h1>
+    <div class="sub" id="lineSub"></div>
+  </div>
+  <div class="controls">
+    <span class="clock" id="clock">00:00:00</span>
+    <button id="btnPlay" type="button">⏸ 일시정지</button>
+    <label>배속
+      <select id="selSpeed"></select>
+    </label>
+    <button id="btnReset" type="button">↺ 초기화</button>
+  </div>
+</header>
+
+<section class="panel flow">
+  <div class="panel-h">
+    <h2>라인 흐름도</h2>
+    <div class="legend" id="legend"></div>
+  </div>
+  <svg id="flowSvg" role="img" aria-label="검사 라인 흐름도"></svg>
+</section>
+
+<section class="kpis" id="kpis"></section>
+
+<section class="grid">
+  <div class="panel">
+    <div class="panel-h"><h2>단계별 가동률</h2><span class="hint">최근 10분(시뮬 시간) PC 점유율</span></div>
+    <svg id="utilSvg" viewBox="0 0 520 250" role="img" aria-label="단계별 가동률 막대차트"></svg>
+  </div>
+  <div class="panel">
+    <div class="panel-h"><h2>UPH 추이 vs 목표</h2><span class="hint">최근 10분 이동 평균 환산</span></div>
+    <svg id="uphSvg" viewBox="0 0 520 250" role="img" aria-label="UPH 추이 차트"></svg>
+  </div>
+  <div class="panel side">
+    <div class="panel-h"><h2>병목 단계</h2></div>
+    <div id="bottleneck" class="bn"></div>
+    <div class="panel-h" style="margin-top:12px"><h2>최근 이벤트</h2></div>
+    <ul id="log" class="log"></ul>
+  </div>
+</section>
+
+<script src="../data/line.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

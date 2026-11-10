@@ -1,0 +1,56 @@
+three.min.js 제3자 원본 검증 보고서
+검사시각: 2026-11-10 12:46:38 KST (Asia/Seoul)
+범위: 기존 archive에 포함된 three.min.js만. 코드 동작 조사·실행·npm install/script 실행 없음.
+기존 archive와 Mac 원본은 변경하지 않음.
+
+1) 버전·라이선스 식별 (패키지 파일 헤더/동봉 LICENSE, 공식 npm 메타)
+- 파일 헤더: Copyright 2010-2023 Three.js Authors / SPDX-License-Identifier: MIT
+- 파일 내부 REVISION 상수: "159"  (three r159)
+- 헤더 경고: build/three.js 및 build/three.min.js는 r150+에서 deprecated, r160에서 제거
+- 동봉 LICENSE: The MIT License / Copyright © 2010-2023 three.js authors
+- 공식 npm 메타: https://registry.npmjs.org/three/0.159.0
+  name=three, version=0.159.0, license=MIT
+  homepage=https://threejs.org/
+  repository=https://github.com/mrdoob/three.js
+
+2) 공식 파일 출처 (정적 download만)
+- tarball URL: https://registry.npmjs.org/three/-/three-0.159.0.tgz
+- 로컬 보존(검증용, 전달 archive에는 미포함): /workspace/avn-handoff-20261110-1233/_three_verify/three-0.159.0.tgz
+- tarball 크기: 9,394,205 bytes
+- tarball sha256: 9282f12c4fd79ea7d35325ca2a3c86451bbb5c0c64a7120dbd4707617c004fcd
+- tarball sha1: 6576b1210805b14f0765bac41fd0e4ec18e43b2e  == npm dist.shasum (일치)
+- npm dist.integrity sha512 일치
+- 비교 대상 멤버: package/build/three.min.js
+- 공식 three.min.js 크기: 668,024 bytes
+- 공식 three.min.js sha256: 7b1c5d75b28d9de15042e2b374f83566d8c7146697af8fdeb4558b0fb528a585
+- 공식 package/LICENSE 크기: 1,081 bytes
+- 공식 package/LICENSE sha256: 852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d
+
+3) 패키지 내 파일 (5개 모두 공식과 byte/sha256 일치, 크기 668,024)
+경로(archive 내부, package/ 루트 기준):
+- 01_original_samples/04_threejs_3d/vendor/three/three.min.js
+- 02_unified_draft_INCOMPLETE/legacy_samples_preserved/04_threejs_3d/vendor/three/three.min.js
+- 02_unified_draft_INCOMPLETE/views/04_threejs_3d/three.min.js
+- 02_unified_draft_INCOMPLETE/views/04_threejs_3d/vendor/three.min.js
+- 02_unified_draft_INCOMPLETE/views/04_threejs_3d/vendor/three/three.min.js
+공통 sha256: 7b1c5d75b28d9de15042e2b374f83566d8c7146697af8fdeb4558b0fb528a585
+
+동봉 LICENSE 4개도 공식 package/LICENSE와 byte/sha256 일치:
+- 01_original_samples/04_threejs_3d/vendor/three/LICENSE
+- 02_unified_draft_INCOMPLETE/legacy_samples_preserved/04_threejs_3d/vendor/three/LICENSE
+- 02_unified_draft_INCOMPLETE/views/04_threejs_3d/LICENSE
+- 02_unified_draft_INCOMPLETE/views/04_threejs_3d/vendor/three/LICENSE
+공통 sha256: 852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d
+
+패키지 내 다른 *.min.js / vendor JS는 없음 (동일 파일 5벌 중복만 존재).
+
+4) 한정 판정
+일치하므로, 위 5개 three.min.js(및 동봉 LICENSE)는 수정 없는 공식 three@0.159.0 제3자 원본이다.
+따라서 해당 파일에 대한 '민감정보 패턴검사 미확인(vendor minified JS 미검토)' 사유는 해소된다.
+패키지 전체의 안전성·외부전송 안전은 보장하지 않는다.
+
+5) 남아 있는 미해결(패턴검사 한계는 유지)
+- 이미지는 패키지에서 제외되어 시각 검사하지 않음
+- three.min.js 외 텍스트/소스에 대한 민감정보 검사는 여전히 휴리스틱 패턴 검사뿐
+- external_transfer_safe_confirmed = false (일반 안전 확인 아님)
+- 이전에 로컬 보존만 하기로 한 private hint 항목은 이번 패키지에 재포함하지 않았고, 이번 단계에서 재검사하지 않음

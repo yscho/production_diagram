@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVN 검사라인 안돈 보드 (05 카드/그리드)</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-title">
+    <div class="lamp" id="lamp"></div>
+    <div>
+      <h1 id="lineName">-</h1>
+      <div class="sub" id="lineSub">-</div>
+    </div>
+  </div>
+  <div class="kpis">
+    <div class="kpi clock"><span class="k">현재 시각</span><b id="clock">--:--:--</b><small id="simclock">-</small></div>
+    <div class="kpi"><span class="k">UPH 실적 / 목표</span><b><span id="uph">0</span><i> / </i><span id="uphT">0</span></b><div class="bar"><u id="uphBar"></u></div></div>
+    <div class="kpi"><span class="k">종합 수율</span><b id="yield">-</b><small id="yieldSub">-</small></div>
+    <div class="kpi"><span class="k">누적 통과</span><b id="cPass" class="c-pass">0</b></div>
+    <div class="kpi"><span class="k">누적 불량</span><b id="cFail" class="c-fail">0</b></div>
+    <div class="kpi"><span class="k">라인 내 팔레트</span><b id="wip">0</b><small id="wipSub">-</small></div>
+    <div class="kpi alarm" id="alarmBox"><span class="k">경보</span><b id="alarmN">0</b><small id="alarmTxt">정상</small></div>
+  </div>
+</header>
+
+<div class="ctrl">
+  <button id="btnPlay" type="button">⏸ 일시정지</button>
+  <label>배속 <select id="selSpeed"></select></label>
+  <button id="btnReset" type="button">⟲ 초기화</button>
+  <span class="seed" id="seedInfo"></span>
+  <div class="legend" id="legend"></div>
+</div>
+
+<main class="board" id="board"></main>
+
+<footer class="ticker"><span class="k">최근 이벤트</span><ul id="events"></ul></footer>
+
+<script src="../data/line.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

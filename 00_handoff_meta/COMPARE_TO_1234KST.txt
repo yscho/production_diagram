@@ -1,0 +1,18 @@
+기존 archive와의 비교
+기존: /workspace/avn-handoff-20261110-1233/avn_production_diagram_handoff_20261110_1234KST.tar.gz
+기존 sha256: f81a5e5688f0947122002bc208ea3bf0b657cc15fb7f39b92dd22d8d8e5fe35c (이 검증 전후 불변이어야 함)
+신규: 메타 보고서만 보완한 별도 이름 archive (소스/notice 내용 변경 없음)
+
+소스·INCOMPLETE_DRAFT.txt (86개):
+- HASH_MANIFEST.sha256 내용 동일 (86줄, 해시 불변)
+- INCLUDED_FILE_LIST.txt 내용 동일 (FILE_COUNT=86, TOTAL_BYTES=3789172)
+- 01_original_samples/, 02_unified_draft_INCOMPLETE/, INCOMPLETE_DRAFT.txt 전부 byte 동일
+
+00_handoff_meta 변경:
+- 변경됨: INSPECTION_REPORT.json (sensitiveScan 보완, thirdPartyVerification_three_min_js 추가)
+- 추가됨: THIRD_PARTY_VERIFICATION_three.txt
+- 추가됨: INSPECTION_TABLE.txt
+- 추가됨: COMPARE_TO_1234KST.txt (이 파일)
+- 불변: HASH_MANIFEST.sha256, INCLUDED_FILE_LIST.txt, EXCLUSIONS.txt, DEIDENTIFY_LOG.txt, COMPARE_PREVIOUS_HANDOFF.txt
+
+결론: 소스 내용 변경 없음. 메타/검사결과 보완만.
