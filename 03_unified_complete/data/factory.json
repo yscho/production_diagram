@@ -1,0 +1,313 @@
+{
+  "label": "예시 데이터·가상 시뮬레이션",
+  "line": {
+    "name": "AVN 최종 검사 라인 (가상)",
+    "product": "AVN Head Unit",
+    "shift": "주간 A조",
+    "taktTimeSec": 45,
+    "targetUph": 80
+  },
+  "simulation": {
+    "speed": 10,
+    "palletCount": 36,
+    "arrivalIntervalSec": 45,
+    "conveyorTransferSec": 6,
+    "retestOnFail": true,
+    "maxRetest": 1,
+    "randomSeed": 20261109
+  },
+  "statusColors": {
+    "idle": "#9aa5b1",
+    "busy": "#2f80ed",
+    "pass": "#27ae60",
+    "fail": "#eb5757",
+    "waiting": "#f2c94c",
+    "offline": "#4f4f4f"
+  },
+  "capacityDefaults": {
+    "default": 10,
+    "options": [
+      10,
+      20
+    ]
+  },
+  "capacityAssumptionLabel": "가정: capacity=구성 가능한 용량(예시)",
+  "robots": [
+    {
+      "id": "R1",
+      "name": "로봇 1"
+    },
+    {
+      "id": "R2",
+      "name": "로봇 2"
+    }
+  ],
+  "multiLineExample": {
+    "isExample": true,
+    "stations": [
+      {
+        "id": "A",
+        "name": "A 안착·검사",
+        "cycleTimeSec": 30,
+        "defaultCapacity": 12,
+        "parallelInspection": true,
+        "capacitySource": "사용자 설명: 동시 처리 12개"
+      },
+      {
+        "id": "B",
+        "name": "B 검사",
+        "cycleTimeSec": 40,
+        "defaultCapacity": 12,
+        "parallelInspection": true,
+        "capacitySource": "예시 가정 · 실제 용량 미확정"
+      },
+      {
+        "id": "C",
+        "name": "C 안착·검사",
+        "cycleTimeSec": 35,
+        "defaultCapacity": 12,
+        "parallelInspection": true,
+        "capacitySource": "예시 가정 · 실제 용량 미확정"
+      },
+      {
+        "id": "D",
+        "name": "D 검사",
+        "cycleTimeSec": 45,
+        "defaultCapacity": 12,
+        "parallelInspection": true,
+        "capacitySource": "예시 가정 · 실제 용량 미확정"
+      },
+      {
+        "id": "VISION",
+        "name": "비전 핀 검사",
+        "cycleTimeSec": 20,
+        "defaultCapacity": 2,
+        "parallelInspection": false,
+        "capacitySource": "예시 가정 · 실제 용량 미확정"
+      },
+      {
+        "id": "LABEL",
+        "name": "라벨 부착",
+        "cycleTimeSec": 15,
+        "defaultCapacity": 2,
+        "parallelInspection": false,
+        "capacitySource": "예시 가정 · 실제 용량 미확정"
+      }
+    ],
+    "flow": [
+      "컨베이어 투입",
+      "로봇1: 컨베이어 → A (동시 처리 12개)",
+      "로봇1: A → B",
+      "로봇1: B → 컨베이어 복귀",
+      "컨베이어로 C 앞까지 이동",
+      "로봇2: 컨베이어 → C",
+      "로봇2: C → D",
+      "로봇2: D → 컨베이어 복귀",
+      "후속 검사(예시: 비전 핀 검사)",
+      "라벨 부착",
+      "종료"
+    ],
+    "arrivalIntervalSec": 5,
+    "robotTransferSec": 4,
+    "conveyorTransferSec": 6,
+    "layout": {
+      "stations": {
+        "A": [
+          -24,
+          -0.04
+        ],
+        "B": [
+          -8,
+          -0.04
+        ],
+        "C": [
+          8,
+          -0.04
+        ],
+        "D": [
+          24,
+          -0.04
+        ],
+        "VISION": [
+          38,
+          6
+        ],
+        "LABEL": [
+          47,
+          6
+        ]
+      },
+      "robots": {
+        "R1": [
+          -16,
+          -0.04
+        ],
+        "R2": [
+          16,
+          -0.04
+        ]
+      },
+      "conveyorZ": 6,
+      "conveyorPoints": {
+        "entry": -37,
+        "pickup1": -16,
+        "return1": -5,
+        "pickup2": 16,
+        "return2": 29,
+        "VISION": 38,
+        "LABEL": 47,
+        "exit": 57
+      },
+      "stationWidth": 10.5,
+      "stationDepth": 8.6,
+      "conveyorWidth": 3.1,
+      "railOffset": 0.1,
+      "railThickness": 0.18,
+      "stationConveyorGap": 0
+    }
+  },
+  "scenarios": {
+    "single_line": {
+      "isExample": true,
+      "name": "단일 라인 · 8단계 검사",
+      "type": "single",
+      "stationSource": "stages"
+    },
+    "multi_line_example": {
+      "isExample": true,
+      "name": "멀티라인 공정 예시",
+      "type": "multi",
+      "stationSource": "multiLineExample.stations"
+    }
+  },
+  "stages": [
+    {
+      "id": 1,
+      "code": "VER",
+      "name": "버전 검사",
+      "nameEn": "SW/HW Version Check",
+      "palletSlots": 4,
+      "testPcs": 2,
+      "cycleTimeSec": 30,
+      "failRate": 0.01,
+      "items": [
+        "MCU FW",
+        "SoC OS",
+        "Map DB",
+        "HW Rev"
+      ]
+    },
+    {
+      "id": 2,
+      "code": "BT",
+      "name": "블루투스 화면 검사",
+      "nameEn": "Bluetooth & Display",
+      "palletSlots": 6,
+      "testPcs": 3,
+      "cycleTimeSec": 75,
+      "failRate": 0.03,
+      "items": [
+        "BT Pairing",
+        "HFP Call",
+        "LCD Pattern",
+        "Touch"
+      ]
+    },
+    {
+      "id": 3,
+      "code": "RF",
+      "name": "라디오·와이파이 검사",
+      "nameEn": "Radio / Wi-Fi",
+      "palletSlots": 6,
+      "testPcs": 3,
+      "cycleTimeSec": 90,
+      "failRate": 0.04,
+      "items": [
+        "FM/AM",
+        "DAB/DMB",
+        "Wi-Fi 2.4/5G",
+        "RSSI"
+      ]
+    },
+    {
+      "id": 4,
+      "code": "USB",
+      "name": "USB 검사",
+      "nameEn": "USB / CarPlay",
+      "palletSlots": 4,
+      "testPcs": 2,
+      "cycleTimeSec": 40,
+      "failRate": 0.02,
+      "items": [
+        "USB-A/C",
+        "Media Play",
+        "CarPlay/AA",
+        "Charging"
+      ]
+    },
+    {
+      "id": 5,
+      "code": "GPS",
+      "name": "GPS·내비게이션 검사",
+      "nameEn": "GPS / Navigation",
+      "palletSlots": 6,
+      "testPcs": 3,
+      "cycleTimeSec": 80,
+      "failRate": 0.03,
+      "items": [
+        "GNSS Fix",
+        "Gyro/DR",
+        "Route Calc",
+        "TTFF"
+      ]
+    },
+    {
+      "id": 6,
+      "code": "CAM",
+      "name": "카메라·AV 입력 검사",
+      "nameEn": "Camera / AV Input",
+      "palletSlots": 4,
+      "testPcs": 2,
+      "cycleTimeSec": 50,
+      "failRate": 0.02,
+      "items": [
+        "RVC",
+        "SVM 4ch",
+        "AUX",
+        "Video Sync"
+      ]
+    },
+    {
+      "id": 7,
+      "code": "AUD",
+      "name": "스피커·오디오 검사",
+      "nameEn": "Speaker / Audio",
+      "palletSlots": 6,
+      "testPcs": 3,
+      "cycleTimeSec": 70,
+      "failRate": 0.03,
+      "items": [
+        "AMP Out",
+        "THD+N",
+        "Mic",
+        "Chime"
+      ]
+    },
+    {
+      "id": 8,
+      "code": "FQC",
+      "name": "최종 QC·플래시",
+      "nameEn": "Final QC & Flash",
+      "palletSlots": 4,
+      "testPcs": 2,
+      "cycleTimeSec": 45,
+      "failRate": 0.01,
+      "items": [
+        "Final FW Flash",
+        "Serial/Label",
+        "Visual",
+        "Pack"
+      ]
+    }
+  ]
+}

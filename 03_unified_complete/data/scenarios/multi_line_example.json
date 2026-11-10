@@ -1,0 +1,8 @@
+{
+  "id": "multi_line_example",
+  "name": "로봇 멀티라인 공정 예시",
+  "isExample": true,
+  "model": "../factory.json",
+  "definition": "multiLineExample",
+  "note": "A 동시 처리 12개는 사용자 설명 반영. B/C/D·후속 검사·처리 시간은 canonical factory.json의 예시 설정을 사용합니다."
+}

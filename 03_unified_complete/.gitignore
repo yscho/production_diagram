@@ -1,0 +1,4 @@
+# Local task scratch and duplicate screen captures
+_build/
+/screenshots/
+.DS_Store
