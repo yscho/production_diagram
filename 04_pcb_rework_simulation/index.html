@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>듀얼 PCB 스틸 하우징 분해도 & SW 리워크(재작업) 순서도 시뮬레이터</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three.module.js",
+        "three/addons/": "./vendor/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Top Header Navigation -->
+  <header class="app-header">
+    <div class="brand-group">
+      <div class="brand-icon">PCB</div>
+      <div class="brand-title">
+        <h1>스틸 박싱 듀얼 PCB 분해도 &amp; SW 리워크 시뮬레이터</h1>
+        <p>Top PCB (CPU·eMMC) ↔ Bottom PCB (MCU·JTAG) 조립 구조 및 개발용 보드 교체 리워크 순서도</p>
+      </div>
+    </div>
+
+    <div class="mode-tabs">
+      <button class="mode-tab active" data-mode="sim">
+        <span>🧊 3D 분해도 &amp; 인터랙티브 순서도</span>
+      </button>
+      <button class="mode-tab" data-mode="diagram">
+        <span>📊 한눈에 보는 구조 비교 &amp; 순서도 보드</span>
+      </button>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn btn-purple" id="btn-open-spec-modal">
+        <span>⚙️ 부품/칩셋 명칭 커스터마이징</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="workspace">
+    <!-- Left / Center 3D Viewport -->
+    <section class="viewport-container">
+      <div id="canvas-wrapper">
+        <div id="labels-container"></div>
+      </div>
+
+      <!-- Top Floating HUD Banner & View Controls -->
+      <div class="viewport-top-hud">
+        <div class="status-banner">
+          <div class="status-badge-row">
+            <span class="status-step-pill" id="status-step-pill">사전 상태 · 조립 구조</span>
+          </div>
+          <h2 id="status-title">조립 상태 (스틸 하우징 내 탑/바텀 PCB 결합)</h2>
+          <p id="status-desc">
+            탑 PCB와 바텀 PCB가 커넥터로 연결된 채 스틸 계열 박싱 하우징에 놓여 있으며 스크류로 각각 체결된 상태입니다.
+          </p>
+        </div>
+
+        <div class="viewport-Quick-controls">
+          <div class="control-group-card">
+            <span class="control-label">스틸 하우징 표현:</span>
+            <button class="chip-toggle active" data-housing-mode="xray">반투명 투시 (내부 보기)</button>
+            <button class="chip-toggle" data-housing-mode="solid">불투명 스틸</button>
+            <button class="chip-toggle" data-housing-mode="wireframe">와이어프레임</button>
+            <button class="chip-toggle" data-housing-mode="hidden">하우징 숨김</button>
+          </div>
+          <div class="control-group-card">
+            <button class="chip-toggle active" id="btn-toggle-labels">🏷️ 3D 부품 라벨 표시</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom-Left 2D Cross-Section / Architecture Schematic Card -->
+      <div class="schematic-mini-card" id="schematic-mini-card">
+        <div class="schematic-header" id="schematic-toggle-header">
+          <span>📐 실시간 적층 단면도 (Top ↔ Bottom 결합 구조)</span>
+          <span id="schematic-collapse-icon" style="font-size:10.5px; color:var(--text-secondary);">▼ 접기</span>
+        </div>
+        <div class="schematic-body" id="mini-schematic-content"></div>
+      </div>
+
+      <!-- Bottom Exploded View Slider & Quick State Presets -->
+      <div class="viewport-bottom-bar">
+        <div class="explode-slider-group">
+          <label for="explode-range">
+            <span>🔧 분해도 슬라이더 (조립 ↔ 분해)</span>
+            <span class="explode-value-badge" id="explode-value-badge">0%</span>
+          </label>
+          <input type="range" id="explode-range" class="explode-range" min="0" max="100" value="0" />
+        </div>
+
+        <div class="preset-buttons">
+          <button class="btn btn-sm" data-quick-preset="assembled_zero">🔒 조립 상태 (하우징 내부 안착)</button>
+          <button class="btn btn-sm" data-quick-preset="exploded_full">💥 100% 전체 분해도 보기</button>
+          <button class="btn btn-sm btn-purple" data-quick-preset="dev_swap">⚡ 개발용 바텀 PCB(JTAG) 교체 뷰</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Sidebar: Customizable Rework Flowchart -->
+    <aside class="sidebar-panel">
+      <div class="sidebar-header">
+        <div class="sidebar-header-top">
+          <h2>📋 SW 이상 시 리워크(재작업) 순서도</h2>
+          <div style="display:flex; gap:5px;">
+            <button class="btn btn-sm" id="btn-preset-3step" title="핵심 3단계(언박싱 -> PCB분리 -> 개발용 바텀 연결)로 전환">
+              핵심 3단계
+            </button>
+            <button class="btn btn-sm" id="btn-preset-5step" title="사전 조립 상태 및 재조립을 포함한 전체 5단계로 전환">
+              전체 5단계
+            </button>
+          </div>
+        </div>
+        <p class="sidebar-subtitle">
+          단계를 클릭하면 3D 분해/교체 시뮬레이션이 연동됩니다. <strong>[✏️]</strong> 버튼으로 문구·단계·순서를 직접 커스터마이징하세요.
+        </p>
+      </div>
+
+      <div class="playback-controls">
+        <div class="playback-left">
+          <button class="btn btn-sm" id="btn-prev-step">◀ 이전</button>
+          <button class="btn btn-sm" id="btn-autoplay">▶ 단계별 자동 재생</button>
+          <button class="btn btn-sm" id="btn-next-step">다음 ▶</button>
+        </div>
+        <div class="playback-right">
+          <button class="btn btn-sm btn-emerald" id="btn-add-step">+ 단계 추가</button>
+        </div>
+      </div>
+
+      <div class="flowchart-scroll" id="flowchart-list"></div>
+    </aside>
+
+    <!-- Fullscreen Diagram & Presentation View (Tab 2) -->
+    <section class="diagram-fullscreen-view" id="diagram-fullscreen-view">
+      <div class="diagram-grid">
+        <div class="diagram-section-card">
+          <div class="diagram-section-header">
+            <h3>1. 제품 하드웨어 구조 비교: 양산 조립 상태 vs SW 리워크(개발용 바텀 PCB 결합) 상태</h3>
+            <span style="font-size:12.5px; color:var(--text-secondary);">
+              양산용 바텀 PCB에는 JTAG 선이 없어, 탑 PCB 분리 후 개발용 바텀 PCB에 연결해 업데이트합니다.
+            </span>
+          </div>
+          <div class="arch-compare-grid" id="arch-compare-container"></div>
+        </div>
+
+        <div class="diagram-section-card">
+          <div class="diagram-section-header">
+            <h3>2. 커스터마이징된 SW 리워크(재작업) 전체 순서도</h3>
+            <span style="font-size:12.5px; color:var(--text-secondary);">
+              각 카드를 클릭하면 해당 단계의 3D 분해도 시뮬레이션 화면으로 즉시 이동합니다.
+            </span>
+          </div>
+          <div class="visual-flowchart-board" id="visual-flowchart-board"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal for Customizing Hardware Component Labels -->
+  <div class="modal-backdrop" id="spec-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>⚙️ 제품 부품 및 칩셋 명칭 커스터마이징</h3>
+        <button class="icon-btn" id="btn-close-spec-modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:12.5px; color:var(--text-secondary);">
+          3D 분해도 라벨과 단면도, 순서도 보드에 표시되는 하드웨어 명칭을 프로젝트에 맞게 수정할 수 있습니다.
+        </p>
+        <div class="form-row-inline">
+          <div class="form-row">
+            <label>외함 하우징 명칭</label>
+            <input type="text" class="form-input" id="spec-input-housing" />
+          </div>
+          <div class="form-row">
+            <label>스크류 명칭</label>
+            <input type="text" class="form-input" id="spec-input-screws" />
+          </div>
+        </div>
+        <div class="form-row-inline">
+          <div class="form-row">
+            <label>상단 PCB (Top PCB) 명칭</label>
+            <input type="text" class="form-input" id="spec-input-topPcb" />
+          </div>
+          <div class="form-row">
+            <label>보드 간 연결 커넥터 명칭</label>
+            <input type="text" class="form-input" id="spec-input-connector" />
+          </div>
+        </div>
+        <div class="form-row-inline">
+          <div class="form-row">
+            <label>Top PCB 메인 칩셋 1 (CPU)</label>
+            <input type="text" class="form-input" id="spec-input-cpu" />
+          </div>
+          <div class="form-row">
+            <label>Top PCB 메모리 칩셋 2 (eMMC)</label>
+            <input type="text" class="form-input" id="spec-input-emmc" />
+          </div>
+        </div>
+        <div class="form-row-inline">
+          <div class="form-row">
+            <label>생산용 하단 PCB (양산용 Bottom PCB)</label>
+            <input type="text" class="form-input" id="spec-input-prodBottomPcb" />
+          </div>
+          <div class="form-row">
+            <label>리워크용 하단 PCB (개발용 Bottom PCB)</label>
+            <input type="text" class="form-input" id="spec-input-devBottomPcb" />
+          </div>
+        </div>
+        <div class="form-row-inline">
+          <div class="form-row">
+            <label>Bottom PCB 컨트롤러 (MCU)</label>
+            <input type="text" class="form-input" id="spec-input-mcu" />
+          </div>
+          <div class="form-row">
+            <label>Bottom PCB 디버그 포트 (JTAG)</label>
+            <input type="text" class="form-input" id="spec-input-jtag" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" id="btn-reset-spec-modal">기본값 복원</button>
+        <button class="btn btn-primary" id="btn-save-spec-modal">적용 및 저장</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
